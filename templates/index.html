@@ -1,0 +1,31 @@
+from flask import Flask, render_template, request, jsonify
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import MinMaxScaler
+from tensorflow.keras.models import Sequential, load_model
+from tensorflow.keras.layers import Dense, LSTM, Dropout, BatchNormalization
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau
+from stock_prediction import create_sequences, build_model, add_technical_indicators
+from joblib import Memory
+import os
+from news_api import NewsAPI
+
+// ...
+@memory.cache
+def preprocess_data(stock_symbol, df):
+    try:
+        // ...
+        
+    except Exception as e:
+        print(f'Error in prediction: {str(e)}')
+        print(f'Error type: {type(e).__name__}')
+        print(f'Error details: {e.args}')
+        return jsonify({'error': f'An error occurred during prediction: {str(e)}'}), 500
+
+if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--port', type=int, default=8000, help='Port to run the server on')
+    args = parser.parse_args()
+    app.run(port=args.port, debug=True)
